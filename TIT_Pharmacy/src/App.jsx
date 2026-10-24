@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
 import ThuocList from "./component/ThuocList";
 import ThuocAdd from "./component/ThuocAdd";
 
@@ -6,6 +7,16 @@ function App() {
   const [trang, setTrang] = useState("list");
   const [lanCapNhat, setLanCapNhat] = useState(0);
   const [thongBao, setThongBao] = useState("");
+
+  useEffect(() => {
+    if (!thongBao) return;
+
+    const timer = setTimeout(() => {
+      setThongBao("");
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [thongBao]);
 
   const themThanhCong = () => {
     setLanCapNhat((prev) => prev + 1);
@@ -25,29 +36,11 @@ function App() {
   return (
       <div>
         {trang === "list" ? (
-            <>
-              {thongBao && (
-                  <div className="container mt-3 mb-0">
-                    <div
-                        className="alert alert-success alert-dismissible"
-                        role="alert"
-                    >
-                      {thongBao}
-                      <button
-                          type="button"
-                          className="btn-close"
-                          aria-label="Đóng"
-                          onClick={() => setThongBao("")}
-                      />
-                    </div>
-                  </div>
-              )}
-
-              <ThuocList
-                  key={lanCapNhat}
-                  onThemMoi={moTrangThem}
-              />
-            </>
+            <ThuocList
+                key={lanCapNhat}
+                onThemMoi={moTrangThem}
+                thongBao={thongBao}
+            />
         ) : (
             <ThuocAdd
                 onQuayLai={quayLaiDanhSach}

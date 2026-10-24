@@ -5,7 +5,7 @@ import {
     getDanhSachDanhMuc
 } from "../service/thuocService";
 
-function ThuocList({ onThemMoi }) {
+function ThuocList({ onThemMoi, thongBao }) {
     const [danhSachThuoc, setDanhSachThuoc] = useState([]);
     const [danhSachDanhMuc, setDanhSachDanhMuc] = useState([]);
     const [tenNhap, setTenNhap] = useState("");
@@ -13,8 +13,6 @@ function ThuocList({ onThemMoi }) {
     const [tenTim, setTenTim] = useState("");
     const [danhMucTim, setDanhMucTim] = useState("");
     const [loi, setLoi] = useState("");
-
-
 
     useEffect(() => {
         const capNhatDuLieu = async () => {
@@ -38,6 +36,7 @@ function ThuocList({ onThemMoi }) {
 
     const dinhDangNgay = (ngay) => {
         if (!ngay) return "";
+
         const [nam, thang, ngayTrongThang] = ngay.split("-");
         return `${ngayTrongThang}/${thang}/${nam}`;
     };
@@ -69,6 +68,22 @@ function ThuocList({ onThemMoi }) {
             <h2 className="page-title">TIT PHARMACY</h2>
             <h4 className="text-center mb-4">QUẢN LÝ SẢN PHẨM</h4>
 
+            {thongBao && (
+                <div
+                    key={thongBao}
+                    className="success-message-wrapper"
+                    role="status"
+                >
+                    <p className="message success-message">
+                        {thongBao}
+                    </p>
+
+                    <div className="success-progress-track">
+                        <div className="success-progress-bar" />
+                    </div>
+                </div>
+            )}
+
             <div className="toolbar">
                 <input
                     type="text"
@@ -87,6 +102,7 @@ function ThuocList({ onThemMoi }) {
                     onChange={(e) => setDanhMucNhap(e.target.value)}
                 >
                     <option value="">Tất cả thể loại</option>
+
                     {danhSachDanhMuc.map((dm) => (
                         <option key={dm.id} value={dm.id}>
                             {dm.tenDanhMuc}
@@ -112,7 +128,9 @@ function ThuocList({ onThemMoi }) {
             </div>
 
             {loi && (
-                <div className="alert alert-danger">{loi}</div>
+                <div className="alert alert-danger">
+                    {loi}
+                </div>
             )}
 
             {danhSachHienThi.length === 0 ? (

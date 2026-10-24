@@ -1,24 +1,24 @@
 {
   "danhMuc": [
     {
-      "id": 1,
+      "id": "1",
       "tenDanhMuc": "Thuốc giảm đau",
       "moTa": "Các sản phẩm giảm đau"
     },
     {
-      "id": 2,
+      "id": "2",
       "tenDanhMuc": "Thuốc kháng sinh",
       "moTa": "Các sản phẩm kháng sinh"
     },
     {
-      "id": 3,
+      "id": "3",
       "tenDanhMuc": "Vitamin",
       "moTa": "Các sản phẩm bổ sung vitamin"
     }
   ],
   "thuoc": [
     {
-      "id": 1,
+      "id": "1",
       "maThuoc": "PROD-0001",
       "tenThuoc": "Paracetamol",
       "danhMucId": 1,
@@ -27,59 +27,14 @@
       "ngayNhap": "2026-10-20"
     },
     {
-      "id": 2,
+      "id": "2",
       "maThuoc": "PROD-0002",
       "tenThuoc": "Amoxicillin",
       "danhMucId": 2,
       "soLuong": 50,
       "gia": 25000,
       "ngayNhap": "2026-10-21"
-    },
-    {
-      "maThuoc": "PROD-0004",
-      "tenThuoc": "f",
-      "danhMucId": 1,
-      "soLuong": 21,
-      "gia": 120000,
-      "ngayNhap": "2026-10-16",
-      "id": 3
-    },
-    {
-      "maThuoc": "PROD-0005",
-      "tenThuoc": "thuo",
-      "danhMucId": 2,
-      "soLuong": 12,
-      "gia": 20000,
-      "ngayNhap": "2026-10-14",
-      "id": 4
-    },
-    {
-      "maThuoc": "PROD-0006",
-      "tenThuoc": "f",
-      "danhMucId": 2,
-      "soLuong": 12,
-      "gia": 12000,
-      "ngayNhap": "2026-10-10",
-      "id": 5
-    },
-    {
-      "maThuoc": "PROD-0007",
-      "tenThuoc": "para",
-      "danhMucId": 1,
-      "soLuong": 1,
-      "gia": 120000,
-      "ngayNhap": "2026-10-21",
-      "id": 6
-    },
-    {
-      "maThuoc": "PROD-0008",
-      "tenThuoc": "mophi",
-      "danhMucId": 1,
-      "gia": 2,
-      "soLuong": 12,
-      "ngayNhap": "2026-10-22",
-      "moTa": "nhẹ",
-      "id": 7
     }
-  ]
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
 }

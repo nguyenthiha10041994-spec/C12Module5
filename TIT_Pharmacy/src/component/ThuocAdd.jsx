@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import {
     getDanhSachThuoc,
@@ -19,6 +20,18 @@ function ThuocAdd({ onQuayLai, onThemThanhCong }) {
     });
 
     const [loi, setLoi] = useState("");
+    const [loiNgayNhap, setLoiNgayNhap] = useState("");
+
+    const laNgayTuongLai = (ngay) => {
+        if (!ngay) return false;
+
+        const ngayNhap = new Date(`${ngay}T00:00:00`);
+        const homNay = new Date();
+
+        homNay.setHours(0, 0, 0, 0);
+
+        return ngayNhap > homNay;
+    };
 
     useEffect(() => {
         getDanhSachDanhMuc()
@@ -36,6 +49,16 @@ function ThuocAdd({ onQuayLai, onThemThanhCong }) {
             ...prev,
             [name]: value
         }));
+
+        if (name === "ngayNhap") {
+            setLoiNgayNhap(
+                laNgayTuongLai(value)
+                    ? "Ngày nhập không được lớn hơn ngày hiện tại."
+                    : ""
+            );
+        }
+
+        setLoi("");
     };
 
     const handleSubmit = async (e) => {
@@ -78,13 +101,10 @@ function ThuocAdd({ onQuayLai, onThemThanhCong }) {
             return;
         }
 
-        const ngayHienTai = new Date();
-        ngayHienTai.setHours(0, 0, 0, 0);
-
-        const ngayNhap = new Date(`${thuoc.ngayNhap}T00:00:00`);
-
-        if (ngayNhap > ngayHienTai) {
-            setLoi("Ngày nhập không được lớn hơn ngày hiện tại.");
+        if (laNgayTuongLai(thuoc.ngayNhap)) {
+            setLoiNgayNhap(
+                "Ngày nhập không được lớn hơn ngày hiện tại."
+            );
             return;
         }
 
@@ -102,7 +122,7 @@ function ThuocAdd({ onQuayLai, onThemThanhCong }) {
             }
 
             await themThuoc({
-                maThuoc: maThuoc,
+                maThuoc,
                 tenThuoc: thuoc.tenThuoc.trim(),
                 danhMucId: Number(thuoc.danhMucId),
                 gia: Number(thuoc.gia),
@@ -117,12 +137,6 @@ function ThuocAdd({ onQuayLai, onThemThanhCong }) {
             setLoi("Thêm sản phẩm thất bại. Hãy kiểm tra máy chủ.");
         }
     };
-
-    const ngayHomNay = [
-        new Date().getFullYear(),
-        String(new Date().getMonth() + 1).padStart(2, "0"),
-        String(new Date().getDate()).padStart(2, "0")
-    ].join("-");
 
     return (
         <div className="container mt-4 mb-5">
@@ -227,11 +241,19 @@ function ThuocAdd({ onQuayLai, onThemThanhCong }) {
                                 type="date"
                                 className="form-control"
                                 name="ngayNhap"
-                                max={ngayHomNay}
                                 value={thuoc.ngayNhap}
                                 onChange={handleChange}
                                 required
                             />
+
+                            {loiNgayNhap && (
+                                <div
+                                    className="text-danger mt-1"
+                                    role="alert"
+                                >
+                                    {loiNgayNhap}
+                                </div>
+                            )}
                         </div>
 
                         <div className="mb-4">
